@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ProofFolio: an offline-first workspace for projects, people, files and reports</title>
+  <meta name="description" content="ProofFolio is an offline-first workspace for your projects, people, events, files, notes, checklists and reports, with a separate password-protected Vault.">
+  <meta name="theme-color" content="#f3f6f5">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ProofFolio">
+  <meta property="og:title" content="ProofFolio: every project, kept together">
+  <meta property="og:description" content="An offline-first workspace for projects, people, events, files, notes, checklists and reports.">
+  <!-- Social crawlers need absolute URLs. Once the domain is known, change this to e.g. https://example.com/assets/img/og-image.png -->
+  <meta property="og:image" content="assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ProofFolio logo beside a folder holding two sheets of paper.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ProofFolio: every project, kept together">
+  <meta name="twitter:description" content="An offline-first workspace for projects, people, events, files, notes, checklists and reports.">
+  <meta name="twitter:image" content="assets/img/og-image.png">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <noscript><style>.sheet[hidden]{display:block!important}</style></noscript>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M3 17l5-5 4 4 3-3 6 6"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></symbol>
+    <symbol id="i-audio" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M4 4h16v12l-4 4H4z"/><path d="M16 20v-4h4M8 9h8M8 13h4"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-tasks" viewBox="0 0 24 24"><path d="M4 7l2 2 3-3M4 16l2 2 3-3M13 8h7M13 17h7"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-timeline" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8M12 6h8M12 18h8"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 17v-3M12 17v-6M15 17v-2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 3.5 12 2.5l1.5 1V10l8 5v2l-8-2v4l2 1.5V22l-3.5-1L8.5 22v-1.5L10.5 19v-4l-8 2v-2l8-5z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M6.5 3.8v16.4a.8.8 0 0 0 1.2.7l13.6-8.2a.8.8 0 0 0 0-1.4L7.7 3.1a.8.8 0 0 0-1.2.7z"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#top" aria-label="ProofFolio home">
+      <img src="assets/img/logo-mark.svg" alt="" width="32" height="32">
+      ProofFolio
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg class="i" aria-hidden="true"><use href="#i-menu"/></svg>
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#use-cases">Use cases</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#offline">Offline and privacy</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a class="btn btn--sm" href="#" data-play-link>Google Play</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <h1 id="hero-title">Every project, kept together.</h1>
+        <p class="lead">ProofFolio is a personal workspace for your projects, people, events, files, notes and reports. It is built offline-first, so you can keep organizing without a constant internet connection.</p>
+        <div class="hero__actions">
+          <a class="btn btn--play" href="#" data-play-link aria-label="Download ProofFolio on Google Play">
+            <svg class="i i--fill" aria-hidden="true"><use href="#i-play"/></svg>
+            <span><small>Download on</small>Google Play</span>
+          </a>
+          <a class="btn btn--ghost" href="#features">Explore features</a>
+        </div>
+        <ul class="hero__facts">
+          <li><svg class="i" aria-hidden="true"><use href="#i-plane"/></svg>Offline-first</li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg>Separate, password-protected Vault</li>
+        </ul>
+      </div>
+
+      <figure class="hero__visual">
+        <div class="mock" aria-hidden="true">
+          <div class="folder"></div>
+          <div class="paper paper--a"><i></i><i></i><i></i></div>
+          <div class="paper paper--b"><i></i><i></i><i></i></div>
+
+          <div class="phone">
+            <div class="phone__status">
+              <span>9:41</span>
+              <span class="phone__icons"><svg class="i i--fill"><use href="#i-plane"/></svg><span class="battery"></span></span>
+            </div>
+            <div class="phone__title">
+              <small>Project</small>
+              <strong>Riverside survey</strong>
+            </div>
+            <div class="phone__tabs"><span class="is-active">Overview</span><span>People</span><span>Timeline</span><span>Files</span></div>
+            <div class="phone__card">
+              <p class="phone__label">Next up</p>
+              <div class="phone__row"><span class="box is-done"></span>Collect water samples</div>
+              <div class="phone__row"><span class="box"></span>Return to north bank</div>
+            </div>
+            <div class="phone__card">
+              <p class="phone__label">Timeline</p>
+              <div class="phone__row"><span class="dot"></span><time>12 Mar</time>Site visit</div>
+              <div class="phone__row"><span class="dot"></span><time>14 Mar</time>Interview recorded</div>
+            </div>
+            <div class="phone__files">
+              <span class="ftile" style="--tab:var(--t-attach)"><svg class="i"><use href="#i-photo"/></svg></span>
+              <span class="ftile" style="--tab:var(--t-attach)"><svg class="i"><use href="#i-audio"/></svg></span>
+              <span class="ftile" style="--tab:var(--t-attach)"><svg class="i"><use href="#i-doc"/></svg></span>
+              <span class="ftile" style="--tab:var(--t-attach)"><svg class="i"><use href="#i-web"/></svg></span>
+            </div>
+          </div>
+
+          <div class="hero__badge">
+            <svg class="i i--fill"><use href="#i-plane"/></svg>
+            <span>Airplane mode on. You can still organize.</span>
+          </div>
+        </div>
+        <figcaption class="caption">Illustrative mockup of a project screen, not an actual app screenshot.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Problem and solution -->
+  <section class="section section--tint" id="problem" aria-labelledby="problem-title">
+    <div class="container split gather" data-gather>
+      <div class="gather__copy">
+        <h2 id="problem-title">Your work lives in too many places.</h2>
+        <p>A photo in the gallery. A recording somewhere in your files. A document in Downloads. A name in a chat. A follow-up only in your head. When you need the whole story, you go looking.</p>
+        <p>ProofFolio gathers it under one project, along with the people involved, what happened and when, and what is still to do.</p>
+        <button class="btn btn--primary" type="button" data-gather-toggle>Gather into a project</button>
+        <p class="sr-only" role="status" aria-live="polite" data-gather-status></p>
+      </div>
+
+      <div>
+        <div class="gather__stage" aria-hidden="true">
+          <div class="gather__folder">
+            <div class="gather__head">Riverside survey <small>Project</small></div>
+            <div class="gather__slots">
+              <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+              <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+            </div>
+          </div>
+
+          <div class="chip" style="--tab:var(--t-attach);--i:0" data-slot="0" data-u="0.03" data-v="0.06" data-r="-7">
+            <svg class="i"><use href="#i-photo"/></svg>
+            <span class="chip__text"><b>Riverbank photo</b><small><span class="m-s">In your gallery</span><span class="m-g">Photo attachment</span></small></span>
+          </div>
+          <div class="chip" style="--tab:var(--t-attach);--i:1" data-slot="1" data-u="0.97" data-v="0.03" data-r="6">
+            <svg class="i"><use href="#i-doc"/></svg>
+            <span class="chip__text"><b>Survey sheet.pdf</b><small><span class="m-s">In Downloads</span><span class="m-g">Document attachment</span></small></span>
+          </div>
+          <div class="chip" style="--tab:var(--t-attach);--i:2" data-slot="2" data-u="0.08" data-v="0.52" data-r="4">
+            <svg class="i"><use href="#i-audio"/></svg>
+            <span class="chip__text"><b>Interview, 4 min</b><small><span class="m-s">In a voice recorder</span><span class="m-g">Audio attachment</span></small></span>
+          </div>
+          <div class="chip" style="--tab:var(--t-people);--i:3" data-slot="3" data-u="0.92" data-v="0.4" data-r="-5">
+            <svg class="i"><use href="#i-person"/></svg>
+            <span class="chip__text"><b>Nadia Karim</b><small><span class="m-s">In a chat thread</span><span class="m-g">Person profile</span></small></span>
+          </div>
+          <div class="chip" style="--tab:var(--t-timeline);--i:4" data-slot="4" data-u="0.5" data-v="0.14" data-r="3">
+            <svg class="i"><use href="#i-timeline"/></svg>
+            <span class="chip__text"><b>Site visit, 12 Mar</b><small><span class="m-s">In a message</span><span class="m-g">Timeline event</span></small></span>
+          </div>
+          <div class="chip" style="--tab:var(--t-check);--i:5" data-slot="5" data-u="0.45" data-v="0.66" data-r="-6">
+            <svg class="i"><use href="#i-tasks"/></svg>
+            <span class="chip__text"><b>Return for samples</b><small><span class="m-s">Only in your head</span><span class="m-g">Checklist task</span></small></span>
+          </div>
+        </div>
+        <p class="caption">Illustrative example.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core features -->
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="features-title">Everything a project needs, in one place.</h2>
+        <p>Seven parts that work together. Sample content in the previews below is illustrative.</p>
+      </div>
+
+      <div class="bento">
+        <article class="tile tile--projects">
+          <div class="tile__visual" aria-hidden="true">
+            <ul class="mini-projects">
+              <li class="is-open">
+                <span class="dot"></span><b>Riverside survey</b>
+                <span class="counts">
+                  <span><svg class="i"><use href="#i-person"/></svg>4 people</span>
+                  <span><svg class="i"><use href="#i-timeline"/></svg>9 events</span>
+                  <span><svg class="i"><use href="#i-photo"/></svg>23 files</span>
+                  <span><svg class="i"><use href="#i-tasks"/></svg>3 tasks open</span>
+                </span>
+              </li>
+              <li><span class="dot"></span><b>Semester 2 revision</b></li>
+              <li><span class="dot"></span><b>Milo's care journal</b></li>
+            </ul>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg>Projects</h3>
+            <p>Give related work one home. Open a project and find its people, events, files, notes and tasks together, without hunting through apps and folders.</p>
+          </div>
+        </article>
+
+        <article class="tile tile--people">
+          <div class="tile__visual" aria-hidden="true">
+            <ul class="mini-people">
+              <li><span class="avatar">NK</span><span><b>Nadia Karim</b><small>Field assistant</small><span class="linked"><span>Riverside survey</span><span>Flood study</span></span></span></li>
+              <li><span class="avatar">DA</span><span><b>Dr. Amin</b><small>Lecturer</small><span class="linked"><span>Organic Chemistry</span></span></span></li>
+            </ul>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-person"/></svg>People</h3>
+            <p>Keep a profile for each person and connect them to the projects they belong to, so you can see who was involved in what.</p>
+          </div>
+        </article>
+
+        <article class="tile tile--timeline">
+          <div class="tile__visual" aria-hidden="true">
+            <ol class="mini-timeline">
+              <li><time>12 Mar</time>Site visit, north bank</li>
+              <li><time>14 Mar</time>Interview recorded</li>
+              <li><time>19 Mar</time>Follow-up call with supplier</li>
+              <li><time>22 Mar</time>First draft of findings</li>
+            </ol>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-timeline"/></svg>Timeline</h3>
+            <p>Record events as they happen and read them back in order. See how a project developed, and when each thing took place.</p>
+          </div>
+        </article>
+
+        <article class="tile tile--checks">
+          <div class="tile__visual">
+            <ul>
+              <li><label class="check"><input type="checkbox" checked><span class="check__box"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="check__text">Collect water samples</span></label></li>
+              <li><label class="check"><input type="checkbox"><span class="check__box"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="check__text">Return to north bank</span></label></li>
+              <li><label class="check"><input type="checkbox"><span class="check__box"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="check__text">Send notes to Nadia</span></label></li>
+            </ul>
+            <p class="hint">Sample tasks. Try ticking one.</p>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-tasks"/></svg>Checklists</h3>
+            <p>Turn follow-ups into tasks and tick them off, so nothing is forgotten once the meeting or visit is over.</p>
+          </div>
+        </article>
+
+        <article class="tile tile--attach">
+          <div class="tile__visual" aria-hidden="true">
+            <ul class="mini-files">
+              <li><svg class="i"><use href="#i-photo"/></svg>Photos</li>
+              <li><svg class="i"><use href="#i-video"/></svg>Videos</li>
+              <li><svg class="i"><use href="#i-audio"/></svg>Audio</li>
+              <li><svg class="i"><use href="#i-doc"/></svg>Documents</li>
+              <li><svg class="i"><use href="#i-note"/></svg>Notes</li>
+              <li><svg class="i"><use href="#i-web"/></svg>Webpages</li>
+            </ul>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-photo"/></svg>Attachments</h3>
+            <p>File photos, videos, audio, documents, notes and saved webpages next to the work they belong to, instead of scattered across your phone.</p>
+          </div>
+        </article>
+
+        <article class="tile tile--reports">
+          <div class="tile__visual" aria-hidden="true">
+            <div class="mini-report">
+              <strong>Site visit summary</strong>
+              <i></i><i></i>
+              <div class="photos"><span></span><span></span><span></span></div>
+              <i></i><i></i>
+            </div>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-report"/></svg>Reports</h3>
+            <p>When it is time to summarize or share, turn what you have organized into a structured report instead of starting from a blank page.</p>
+          </div>
+        </article>
+
+        <article class="tile tile--vault">
+          <div class="tile__visual" aria-hidden="true">
+            <div class="mini-vault">
+              <span class="lock"><svg class="i"><use href="#i-lock"/></svg></span>
+              <div class="field"><span>Password</span><b>&bull;&bull;&bull;&bull;&bull;&bull;&bull;</b></div>
+              <div class="rows"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="tile__body">
+            <h3><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg>Private Vault</h3>
+            <p>Keep sensitive files in a separate area protected by a password, apart from your everyday projects. Open it only when you need it.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use cases -->
+  <section class="section section--tint" id="use-cases" aria-labelledby="use-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="use-title">One workspace for many kinds of work.</h2>
+        <p>The structure never changes: a project with people, events, files, tasks and a report. Only what you keep in it does.</p>
+      </div>
+
+      <div class="tablist" role="tablist" aria-label="Kinds of work" data-tabs>
+        <button role="tab" id="tab-study" aria-controls="uc-study" aria-selected="true" type="button">Study</button>
+        <button role="tab" id="tab-work" aria-controls="uc-work" aria-selected="false" tabindex="-1" type="button">Work</button>
+        <button role="tab" id="tab-research" aria-controls="uc-research" aria-selected="false" tabindex="-1" type="button">Research</button>
+        <button role="tab" id="tab-field" aria-controls="uc-field" aria-selected="false" tabindex="-1" type="button">Field inspections</button>
+        <button role="tab" id="tab-personal" aria-controls="uc-personal" aria-selected="false" tabindex="-1" type="button">Personal records</button>
+      </div>
+
+      <div class="sheet" role="tabpanel" id="uc-study" aria-labelledby="tab-study" tabindex="0">
+        <div class="sheet__head">
+          <span class="sheet__kind">Study project</span>
+          <h3>Organic Chemistry, semester 2</h3>
+          <p>Lecture photos, readings and deadlines for one course, kept together.</p>
+        </div>
+        <div class="sheet__grid">
+          <section class="block b-people" aria-label="People"><h4><svg class="i" aria-hidden="true"><use href="#i-person"/></svg>People</h4><ul><li><span class="avatar" aria-hidden="true">DA</span><span>Dr. Amin<small>Lecturer</small></span></li><li><span class="avatar" aria-hidden="true">SA</span><span>Sara Ahmed<small>Lab partner</small></span></li></ul></section>
+          <section class="block b-timeline" aria-label="Timeline"><h4><svg class="i" aria-hidden="true"><use href="#i-timeline"/></svg>Timeline</h4><ul><li><span class="date">9 Feb</span><span>Lecture 12: reaction mechanisms</span></li><li><span class="date">14 Feb</span><span>Lab session recorded</span></li><li><span class="date">21 Feb</span><span>Midterm revision started</span></li></ul></section>
+          <section class="block b-files" aria-label="Attachments"><h4><svg class="i" aria-hidden="true"><use href="#i-photo"/></svg>Attachments</h4><ul><li><svg class="i li-icon" aria-hidden="true"><use href="#i-photo"/></svg><span>Whiteboard photos, lecture 12</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Reading list.pdf</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-audio"/></svg><span>Tutorial recording</span></li></ul></section>
+          <section class="block b-tasks" aria-label="Checklist"><h4><svg class="i" aria-hidden="true"><use href="#i-tasks"/></svg>Checklist</h4><ul><li><span class="tbox is-done" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span><span><span class="sr-only">Done: </span>Rewrite lecture 11 notes</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Finish lab report draft</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Book study room for Friday</span></li></ul></section>
+          <section class="block block--report b-report" aria-label="Report"><h4><svg class="i" aria-hidden="true"><use href="#i-report"/></svg>Report</h4><p><b>Midterm revision summary</b><br>Topics covered, open questions and notes from past papers.</p></section>
+        </div>
+      </div>
+      <div class="sheet" role="tabpanel" id="uc-work" aria-labelledby="tab-work" tabindex="0" hidden>
+        <div class="sheet__head">
+          <span class="sheet__kind">Work project</span>
+          <h3>Vendor portal rollout</h3>
+          <p>A running record of decisions, calls and deliverables.</p>
+        </div>
+        <div class="sheet__grid">
+          <section class="block b-people" aria-label="People"><h4><svg class="i" aria-hidden="true"><use href="#i-person"/></svg>People</h4><ul><li><span class="avatar" aria-hidden="true">PN</span><span>Priya Nair<small>Client lead</small></span></li><li><span class="avatar" aria-hidden="true">TR</span><span>Tomas Reyes<small>Developer</small></span></li></ul></section>
+          <section class="block b-timeline" aria-label="Timeline"><h4><svg class="i" aria-hidden="true"><use href="#i-timeline"/></svg>Timeline</h4><ul><li><span class="date">3 Mar</span><span>Kickoff meeting</span></li><li><span class="date">11 Mar</span><span>Scope change agreed by email</span></li><li><span class="date">18 Mar</span><span>Staging review</span></li></ul></section>
+          <section class="block b-files" aria-label="Attachments"><h4><svg class="i" aria-hidden="true"><use href="#i-photo"/></svg>Attachments</h4><ul><li><svg class="i li-icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Signed scope.pdf</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-photo"/></svg><span>Whiteboard sketch</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-audio"/></svg><span>Call recording, 11 Mar</span></li></ul></section>
+          <section class="block b-tasks" aria-label="Checklist"><h4><svg class="i" aria-hidden="true"><use href="#i-tasks"/></svg>Checklist</h4><ul><li><span class="tbox is-done" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span><span><span class="sr-only">Done: </span>Send revised estimate</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Confirm launch date</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Schedule training session</span></li></ul></section>
+          <section class="block block--report b-report" aria-label="Report"><h4><svg class="i" aria-hidden="true"><use href="#i-report"/></svg>Report</h4><p><b>Weekly progress report</b><br>What was done, what changed and what comes next.</p></section>
+        </div>
+      </div>
+      <div class="sheet" role="tabpanel" id="uc-research" aria-labelledby="tab-research" tabindex="0" hidden>
+        <div class="sheet__head">
+          <span class="sheet__kind">Research project</span>
+          <h3>Community water use study</h3>
+          <p>Sources, interviews and observations, collected in one place.</p>
+        </div>
+        <div class="sheet__grid">
+          <section class="block b-people" aria-label="People"><h4><svg class="i" aria-hidden="true"><use href="#i-person"/></svg>People</h4><ul><li><span class="avatar" aria-hidden="true">I0</span><span>Interviewee 07<small>Household, east ward</small></span></li><li><span class="avatar" aria-hidden="true">KH</span><span>Kabir Hossain<small>Field assistant</small></span></li></ul></section>
+          <section class="block b-timeline" aria-label="Timeline"><h4><svg class="i" aria-hidden="true"><use href="#i-timeline"/></svg>Timeline</h4><ul><li><span class="date">2 Apr</span><span>Interview 07 recorded</span></li><li><span class="date">5 Apr</span><span>Survey sheets scanned</span></li><li><span class="date">9 Apr</span><span>Groundwater article saved</span></li></ul></section>
+          <section class="block b-files" aria-label="Attachments"><h4><svg class="i" aria-hidden="true"><use href="#i-photo"/></svg>Attachments</h4><ul><li><svg class="i li-icon" aria-hidden="true"><use href="#i-audio"/></svg><span>Interview 07 audio</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-web"/></svg><span>Groundwater trends article</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Survey sheets, scanned</span></li></ul></section>
+          <section class="block b-tasks" aria-label="Checklist"><h4><svg class="i" aria-hidden="true"><use href="#i-tasks"/></svg>Checklist</h4><ul><li><span class="tbox is-done" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span><span><span class="sr-only">Done: </span>Log interview consent</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Transcribe interview 07</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Compare ward totals</span></li></ul></section>
+          <section class="block block--report b-report" aria-label="Report"><h4><svg class="i" aria-hidden="true"><use href="#i-report"/></svg>Report</h4><p><b>Findings so far</b><br>Observations and sources organized for review.</p></section>
+        </div>
+      </div>
+      <div class="sheet" role="tabpanel" id="uc-field" aria-labelledby="tab-field" tabindex="0" hidden>
+        <div class="sheet__head">
+          <span class="sheet__kind">Field inspection</span>
+          <h3>Building inspection, Block C</h3>
+          <p>Each visit documented with photos, measurements and follow-ups.</p>
+        </div>
+        <div class="sheet__grid">
+          <section class="block b-people" aria-label="People"><h4><svg class="i" aria-hidden="true"><use href="#i-person"/></svg>People</h4><ul><li><span class="avatar" aria-hidden="true">SS</span><span>Site supervisor<small>Contact on site</small></span></li><li><span class="avatar" aria-hidden="true">AL</span><span>Ana Lima<small>Co-inspector</small></span></li></ul></section>
+          <section class="block b-timeline" aria-label="Timeline"><h4><svg class="i" aria-hidden="true"><use href="#i-timeline"/></svg>Timeline</h4><ul><li><span class="date">6 May</span><span>Visit 1: ground floor</span></li><li><span class="date">6 May</span><span>Cracks found near stairwell</span></li><li><span class="date">13 May</span><span>Visit 2: roof and stairwell</span></li></ul></section>
+          <section class="block b-files" aria-label="Attachments"><h4><svg class="i" aria-hidden="true"><use href="#i-photo"/></svg>Attachments</h4><ul><li><svg class="i li-icon" aria-hidden="true"><use href="#i-photo"/></svg><span>Crack photos, 9 images</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-note"/></svg><span>Measurement notes</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-video"/></svg><span>Walkthrough video</span></li></ul></section>
+          <section class="block b-tasks" aria-label="Checklist"><h4><svg class="i" aria-hidden="true"><use href="#i-tasks"/></svg>Checklist</h4><ul><li><span class="tbox is-done" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span><span><span class="sr-only">Done: </span>Photograph all stairwell cracks</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Recheck stairwell railing</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Request maintenance log</span></li></ul></section>
+          <section class="block block--report b-report" aria-label="Report"><h4><svg class="i" aria-hidden="true"><use href="#i-report"/></svg>Report</h4><p><b>Inspection report</b><br>Findings, photos and recommended actions for each visit.</p></section>
+        </div>
+      </div>
+      <div class="sheet" role="tabpanel" id="uc-personal" aria-labelledby="tab-personal" tabindex="0" hidden>
+        <div class="sheet__head">
+          <span class="sheet__kind">Personal records</span>
+          <h3>Milo&#x27;s care journal</h3>
+          <p>Health, receipts and routines you will want to look up later.</p>
+        </div>
+        <div class="sheet__grid">
+          <section class="block b-people" aria-label="People"><h4><svg class="i" aria-hidden="true"><use href="#i-person"/></svg>People</h4><ul><li><span class="avatar" aria-hidden="true">DL</span><span>Dr. Lopez<small>Veterinarian</small></span></li><li><span class="avatar" aria-hidden="true">J</span><span>Jamal<small>Pet sitter</small></span></li></ul></section>
+          <section class="block b-timeline" aria-label="Timeline"><h4><svg class="i" aria-hidden="true"><use href="#i-timeline"/></svg>Timeline</h4><ul><li><span class="date">8 Jan</span><span>Annual check-up</span></li><li><span class="date">22 Jan</span><span>Started new food</span></li><li><span class="date">4 Feb</span><span>Vaccination booster</span></li></ul></section>
+          <section class="block b-files" aria-label="Attachments"><h4><svg class="i" aria-hidden="true"><use href="#i-photo"/></svg>Attachments</h4><ul><li><svg class="i li-icon" aria-hidden="true"><use href="#i-photo"/></svg><span>Vaccination card</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Vet invoice.pdf</span></li><li><svg class="i li-icon" aria-hidden="true"><use href="#i-note"/></svg><span>Feeding notes</span></li></ul></section>
+          <section class="block b-tasks" aria-label="Checklist"><h4><svg class="i" aria-hidden="true"><use href="#i-tasks"/></svg>Checklist</h4><ul><li><span class="tbox is-done" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span><span><span class="sr-only">Done: </span>Save vaccination card photo</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Book dental check</span></li><li><span class="tbox" aria-hidden="true"></span><span><span class="sr-only">To do: </span>Reorder flea treatment</span></li></ul></section>
+          <section class="block block--report b-report" aria-label="Report"><h4><svg class="i" aria-hidden="true"><use href="#i-report"/></svg>Report</h4><p><b>Health summary for the vet</b><br>Visits, medication and notes on one page.</p></section>
+        </div>
+      </div>
+
+      <p class="caption">Sample projects for illustration. Names and details are made up.</p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how-it-works" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="how-title">From first note to finished report.</h2>
+        <p>Five steps, the same every time.</p>
+      </div>
+      <ol class="steps">
+        <li class="step s1"><h3>Create a project</h3><p>Name the work. It becomes the home for everything related to it.</p></li>
+        <li class="step s2"><h3>Add information</h3><p>Add people, events and notes, and attach photos, video, audio, documents or saved webpages.</p></li>
+        <li class="step s3"><h3>Track progress</h3><p>Log what happens on the timeline and turn follow-ups into checklist tasks.</p></li>
+        <li class="step s4"><h3>Keep everything organized</h3><p>Everything stays linked to its project and its people, so you can find it later.</p></li>
+        <li class="step s5"><h3>Generate a report</h3><p>Turn what you have gathered into a structured report when you need to summarize or share.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Offline first and privacy -->
+  <section class="section offline on-dark" id="offline" aria-labelledby="offline-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="offline-title">Made to work on your device first.</h2>
+        <p>ProofFolio is offline-first. Organizing your information does not depend on a constant internet connection. Some things are online by nature, and we keep the two clearly apart.</p>
+      </div>
+
+      <div class="offline__grid">
+        <div class="panel">
+          <h3>Works without a connection</h3>
+          <ul>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Creating and editing projects, people and events</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Writing notes and ticking off checklists</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Reviewing your timeline and keeping files organized on your device</li>
+          </ul>
+        </div>
+        <div class="panel panel--net">
+          <h3>Needs a connection</h3>
+          <ul>
+            <li><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg>Loading webpages and following links</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg>Anything that depends on an online service or website</li>
+            <li><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg>Installing and updating the app from Google Play</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="offline__privacy">
+        <div>
+          <h3>What about privacy?</h3>
+          <p>The Private Vault keeps sensitive files in a separate area behind a password. For exactly what ProofFolio stores, which permissions it asks for and how your information is handled, read the Privacy Policy.</p>
+        </div>
+        <a class="btn btn--ghost" href="privacy-policy.html">Read the Privacy Policy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final call to action -->
+  <section class="section cta on-cobalt" id="get-the-app" aria-labelledby="cta-title">
+    <div class="container cta__inner">
+      <h2 id="cta-title">Bring the loose ends together.</h2>
+      <p>Start a project, add what you already have, and keep it all where you can find it.</p>
+      <div class="hero__actions">
+        <a class="btn btn--play" href="#" data-play-link aria-label="Download ProofFolio on Google Play">
+          <svg class="i i--fill" aria-hidden="true"><use href="#i-play"/></svg>
+          <span><small>Download on</small>Google Play</span>
+        </a>
+        <a class="btn btn--ghost" href="#features">Explore features</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <a class="brand" href="#top" aria-label="ProofFolio home">
+          <img src="assets/img/logo-mark.svg" alt="" width="32" height="32">
+          ProofFolio
+        </a>
+        <p>An offline-first personal workspace for projects, people, events, attachments, notes, checklists, reports and private files.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li data-contact-item hidden><a href="#" data-contact-link>Contact</a></li>
+          <li><a href="#" data-play-link>Google Play</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="copyright">&copy; 2026 ProofFolio. Google Play is a trademark of Google LLC.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
