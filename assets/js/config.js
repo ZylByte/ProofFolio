@@ -12,8 +12,8 @@
  */
 window.PROOFFOLIO_CONFIG = {
   playStoreUrl: "",   // e.g. the full https://play.google.com/store/apps/details?id=... link
-  contactEmail: "",   // a real address you monitor for privacy questions
-  developerName: "",  // legal name of the developer or company
-  effectiveDate: "",  // e.g. "1 October 2026"
-  lastUpdated: ""     // e.g. "1 October 2026"
+  contactEmail: "contact.zylbyte@gmail.com",
+  developerName: "ZylByte",
+  effectiveDate: "October 3, 2026",
+  lastUpdated: "October 3, 2026"
 };
