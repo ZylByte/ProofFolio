@@ -11,7 +11,7 @@
  * Nothing secret belongs in this file. It is public.
  */
 window.PROOFFOLIO_CONFIG = {
-  playStoreUrl: "",   // e.g. the full https://play.google.com/store/apps/details?id=... link
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.zylbyte.prooffolio",
   contactEmail: "contact.zylbyte@gmail.com",
   developerName: "ZylByte",
   effectiveDate: "October 3, 2026",
